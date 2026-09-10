@@ -1,9 +1,19 @@
 services:
+  
+  local_llm:
+    provider:
+      type: model
+      options:
+        model: huggingface.co/bartowski/llama-3.2-1b-instruct-gguf
+
+
   fastapi:
     build:
       context: ./app
     ports:
       - "8000:8000"
+    depends_on:
+      - local_llm
 
   ui:
     build:
